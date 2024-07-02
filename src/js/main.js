@@ -1,5 +1,20 @@
+import {Task} from './Task.js';
+
 export const init = () => {
-  let count = 0;
+  const myTask = new Task('Тестовая задача');
+
+  console.log('myTask: ', myTask);
+
+  myTask.id = '123';
+  myTask.title = 'Новая задача';
+  myTask.counter = 1;
+  console.log('myTask: ', myTask);
+
+  myTask.increaseCounter();
+  myTask.changeTitle('Новая задача');
+  console.log('myTask: ', myTask);
+
+  /* let count = 0;
 
   const imp = ['default', 'important', 'so-so'];
   document
@@ -18,5 +33,6 @@ export const init = () => {
           }
         }
       });
+  */
 };
 
