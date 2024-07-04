@@ -37,7 +37,9 @@ export class Task {
   increaseCounter() {
     this.#counter += 1;
 
-    console.log(`Значение счётчика увеличено на 1 при помощи метода.`);
+    // console.log(`Значение счётчика увеличено на 1 при помощи метода.`);
+
+    return this.#counter;
   }
 
   changeTitle(data) {
