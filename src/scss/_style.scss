@@ -39,6 +39,7 @@
 }
 
 .window__panel {
+  min-height: 55px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -84,4 +85,8 @@
   gap: 30px;
   width: 507px;
   margin: 0 auto;
+}
+
+.button-start:disabled  {
+  opacity: 0.6;
 }

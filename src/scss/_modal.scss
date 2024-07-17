@@ -9,6 +9,10 @@
 	z-index: 3;
 }
 
+.modal-overlay_active {
+  display: block;
+}
+
 .modal-delete {
 	position: fixed;
 	display: flex;
