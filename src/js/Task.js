@@ -1,38 +1,15 @@
 /* eslint-disable require-jsdoc */
-
-import {priorityClassList} from './data.js';
-
-
 export class Task {
-  #id;
-  #count;
-
-  constructor(title, counter = 0) {
-    this.#id = String(Date.now() + Math.floor(Math.random() * 1000));
+  constructor(title, id = NaN, count = 0) {
+    this.id = id ? id : String(Date.now() + Math.floor(Math.random() * 1000));
     this.text = String(title);
-    this.#count = counter;
-  }
-
-  get id() {
-    return this.#id;
-  }
-
-  set id(data) {
-    console.log(`Невозможно изменить значение id задачи напрямую на ${data}.`);
-  }
-
-  get count() {
-    return this.#count;
-  }
-
-  set count(data) {
-    console.log(`Невозможно изменить значение счётчика напрямую на ${data}.`);
+    this.count = count;
   }
 
   increaseCounter() {
-    this.#count += 1;
+    this.count += 1;
 
-    return this.#count;
+    return this.count;
   }
 
   changeText(data) {
@@ -43,22 +20,23 @@ export class Task {
 }
 
 export class DefaultTask extends Task {
-  importance = priorityClassList[0];
-  constructor(title, counter = 0) {
-    super(title, counter);
+  constructor(title, priorityClassList, id = NaN, count = 0) {
+    console.log(id);
+    super(title, id, count);
+    this.importance = priorityClassList[0];
   }
 }
 
 export class SoSoTask extends Task {
-  importance = priorityClassList[1];
-  constructor(title, counter = 0) {
-    super(title, counter);
+  constructor(title, priorityClassList, count = 0) {
+    super(title, count);
+    this.importance = priorityClassList[1];
   }
 }
 
 export class ImportantTask extends Task {
-  importance = priorityClassList[2];
-  constructor(title, counter = 0) {
-    super(title, counter);
+  constructor(title, priorityClassList, count = 0) {
+    super(title, count);
+    this.importance = priorityClassList[2];
   }
 }

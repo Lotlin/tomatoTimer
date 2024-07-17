@@ -53,7 +53,7 @@ export class RenderActiveWindow extends RenderTomato {
     super(parentElem);
     this.task = task;
     this.taskText = task.text ? task.text : 'Не выбрана активная задача';
-    this.taskCount = task.count ? task.count : 0;
+    this.taskCount = 0;
   }
 
   render() {
@@ -127,5 +127,16 @@ export class RenderTimerTextContent extends RenderTomato {
     } else {
       this.parentElem.textContent = `${this.timeInSeconds}:00`;
     }
+  }
+}
+
+export class RenderTextContent extends RenderTomato {
+  constructor(parentElem, text) {
+    super(parentElem);
+    this.text = text;
+  }
+
+  render() {
+    this.parentElem.textContent = this.text;
   }
 }

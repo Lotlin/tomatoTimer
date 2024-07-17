@@ -1,14 +1,8 @@
 /* eslint-disable require-jsdoc */
-export class Controller {
-  constructor(tomato, model) {
+export class ControllerTomato {
+  constructor(tomato, TomatoModel) {
     this.tomato = tomato;
-    this.model = model;
-  }
-}
-
-export class TaskFormController extends Controller {
-  constructor(tomato, TaskModel) {
-    super(tomato, TaskModel);
+    this.model = TomatoModel;
   }
 
   getCurrentPriorityIndex(priorityBtn) {
@@ -37,8 +31,23 @@ export class TaskFormController extends Controller {
     return currentPriorityClass;
   }
 
-  createTaskInstance(TaskClass, taskText) {
-    return new TaskClass(taskText);
+  createTaskInstance(TaskClass, taskText, id = NaN, count = 0) {
+    return new TaskClass(taskText, this.model.priorityClassList, id, count);
+  }
+
+  restoreTaskInstance(task) {
+    for (let i = 0; i < this.model.priorityClassesNum; i++) {
+      if (task.importance === this.model.priorityClassList[i]) {
+        const restoredTask = this.createTaskInstance(
+            this.model.classList[i],
+            task.text,
+            task.id,
+            task.count,
+        );
+
+        return restoredTask;
+      }
+    }
   }
 
   getPriorityBtn(form) {
@@ -109,6 +118,8 @@ export class TaskFormController extends Controller {
       );
 
       this.tomato.addTask(task);
+      console.log('task: в Tomato ', task);
+      this.setItemLocalStorage(task);
     } else {
       const importance = this.model.priorityClassList[priorityIndex];
 
@@ -230,19 +241,37 @@ export class TaskFormController extends Controller {
     return newNum < 10 ? `0${newNum}` : newNum;
   }
 
-  // toDO переименовать
-  timerInit(elem) {
-    const timerTextContent = this.getTextContent(elem);
-    let currentValueInSeconds = this.getTimeValueInSeconds(timerTextContent);
+  setItemLocalStorage(task) {
+    const currentTasks = this.getLocalStorageTomatoTasks();
 
-    const updateTimer = () => {
-      currentValueInSeconds--;
-      const minutes =
-        this.addZeroIfNeeded(Math.floor(currentValueInSeconds / 60));
-      const seconds = this.addZeroIfNeeded(currentValueInSeconds % 60);
-      elem.textContent = `${minutes}:${seconds}`;
-    };
+    currentTasks.push(task);
 
-    const timerInterval = setInterval(updateTimer, 1000);
+    localStorage.setItem('tomato', JSON.stringify(currentTasks));
+  }
+
+  getLocalStorageTomatoTasks() {
+    return JSON.parse(localStorage.getItem('tomato') || '[]');
+  }
+
+  removeTaskFromLocalStorageTomatoTasks(taskId) {
+    console.log('taskId: ', taskId);
+    let currentTasks = this.getLocalStorageTomatoTasks();
+
+    currentTasks = currentTasks.filter((item) => Number(item.id) !== taskId);
+
+    localStorage.setItem('localStorage', JSON.stringify(currentTasks));
+  }
+
+  updateTaskDataInLocalStorageTomatoTask(task) {
+    const currentTasks = this.getLocalStorageTomatoTasks();
+
+    currentTasks.forEach(item => {
+      if (Number(item.id) === Number(task.id)) {
+        item.text = task.text;
+        item.count = task.count;
+      }
+    });
+
+    localStorage.setItem('localStorage', JSON.stringify(currentTasks));
   }
 }

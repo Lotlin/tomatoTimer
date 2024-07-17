@@ -1,4 +1,4 @@
-import {DefaultTask, ImportantTask, SoSoTask} from '../Task.js';
+import {DefaultTask, ImportantTask, SoSoTask} from './Task.js';
 
 /* eslint-disable require-jsdoc */
 export class Model {
@@ -10,7 +10,7 @@ export class Model {
   }
 }
 
-export class TaskModel extends Model {
+export class TomatoModel extends Model {
   constructor(task = {}) {
     super(task);
     this.classList = [DefaultTask, SoSoTask, ImportantTask];

@@ -15,7 +15,10 @@ export class Tomato {
     this.#breakTime = data.breakTime ? data.breakTime : 0.15;
     // toDO вернуть 15
     this.#relaxTime = data.relaxTime ? data.relaxTime : 0.2;
-    this.tasks = data.tasks ? data.tasks : [];
+    // this.tasks = data.tasks ? data.tasks : [];
+    // toDO заменить?
+    // this.tasks = [JSON.parse(localStorage.getItem('tomato') || '[]')];
+    this.tasks = [];
     this.activeTask = null;
     this.state = {
       work: this.#workTime,
@@ -27,8 +30,9 @@ export class Tomato {
       timerId: 0,
       currentTomatoes: 0,
       activeTaskId: NaN,
+      activeTaskText: '',
+      state: 'stop',
     };
-
     Tomato._instance = this;
   }
 
@@ -43,6 +47,7 @@ export class Tomato {
     this.tasks.push(taskData);
   }
 
+  // toDo нужно ли?
   delTask(id) {
     const tasksArr = this.tasks
         .filter(task => task.id !== id);
@@ -59,13 +64,15 @@ export class Tomato {
   }
 
   isClickedActiveTaskInListOfTasks() {
-    return this.state.activeTaskId === this.activeTask.id;
+    return this.state.activeTaskId === this.activeTask.id &&
+        this.state.activeTaskText === this.activeTask.text;
   }
 
   setActiveTask(id) {
     this.activeTask = this.getTaskById(id);
 
-    if (this.isClickedActiveTaskInListOfTasks()) {
+    if (this.isClickedActiveTaskInListOfTasks() &&
+      this.state.state === 'start') {
       return;
     }
 
@@ -73,6 +80,7 @@ export class Tomato {
     this.state.status = 'work';
     this.state.currentTomatoes = 0;
     this.state.activeTaskId = id;
+    this.state.activeTaskText = this.activeTask.text;
     this.state.timeLeft = this.#workTime * 60;
 
     return this.activeTask;
@@ -91,41 +99,58 @@ export class Tomato {
     timerCounterElem.textContent = `${minutes}:${seconds}`;
   }
 
+  getTaskCountELem(taskId) {
+    const activeTaskELem = document.querySelector(`[data-id = '${taskId}']`);
+    const countElem = activeTaskELem.querySelector('.count-number');
+
+    return countElem;
+  }
 
   startTimer(activeTask, timerCounterElem) {
-    console.log('activeTask: ', activeTask);
     if (!activeTask) {
       console.log(`Не выбрана ни одна активная задача`);
       return;
     }
 
+    this.state.state = 'start';
+
+    const activeTasCountElem = this.getTaskCountELem(this.state.activeTaskId);
+    const windowTomatoPannel =
+      document.querySelector('.window__panel-task-text');
+    windowTomatoPannel.textContent = `Томат ${this.state.currentTomatoes + 1}`;
+
     this.state.timerId = setInterval(() => {
       this.state.timeLeft -= 1;
       this.showTime(this.state.timeLeft, timerCounterElem);
 
-      // toDO добавить вывод инфо о помидорке
       if (!this.state.timeLeft) {
         if (this.state.status === 'work') {
           activeTask.increaseCounter();
-          console.log('activeTask: ', activeTask);
+          // toDO записывать данные в LS + при изменении наименования тоже
           this.state.currentTomatoes += 1;
+          activeTasCountElem.textContent = activeTask.count;
+          windowTomatoPannel.textContent =
+            `Томат ${this.state.currentTomatoes + 1}`;
 
           if (this.state.currentTomatoes % this.state.count) {
             this.state.status = 'break';
+            windowTomatoPannel.textContent = 'Перерыв';
           } else {
             this.state.status = 'relax';
+            windowTomatoPannel.textContent = 'Большой перерыв';
           }
         } else {
           this.state.status = 'work';
+          windowTomatoPannel.textContent =
+          `Томат ${this.state.currentTomatoes + 1}`;
         }
         this.state.timeLeft = this.state[this.state.status] * 60;
-        console.log('this.state.timeLeft: ', this.state.timeLeft);
       }
-      console.log(this.state.status);
     }, 1000);
   }
 
   stopTimer() {
+    this.state.state = 'stop';
     clearInterval(this.state.timerId);
   }
 
