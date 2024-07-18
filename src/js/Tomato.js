@@ -61,6 +61,8 @@ export class Tomato {
     const editedTask = this.getTaskById(id);
     editedTask.text = editedTask.changeText(text);
     editedTask.importance = importance;
+
+    this.updateTextAndImportanceTaskInLocalStorage(editedTask);
   }
 
   isClickedActiveTaskInListOfTasks() {
@@ -127,6 +129,7 @@ export class Tomato {
         if (this.state.status === 'work') {
           activeTask.increaseCounter();
           // toDO записывать данные в LS + при изменении наименования тоже
+          this.updateCountTaskInLocalStorage(activeTask);
           this.state.currentTomatoes += 1;
           activeTasCountElem.textContent = activeTask.count;
           windowTomatoPannel.textContent =
@@ -152,6 +155,52 @@ export class Tomato {
   stopTimer() {
     this.state.state = 'stop';
     clearInterval(this.state.timerId);
+  }
+
+  setItemLocalStorage(task) {
+    const currentTasks = this.getLocalStorageTomatoTasks();
+
+    currentTasks.push(task);
+
+    localStorage.setItem('tomato', JSON.stringify(currentTasks));
+  }
+
+  getLocalStorageTomatoTasks() {
+    return JSON.parse(localStorage.getItem('tomato') || '[]');
+  }
+
+  removeTaskFromLocalStorageTomatoTasks(taskId) {
+    let currentTasks = this.getLocalStorageTomatoTasks();
+
+    currentTasks = currentTasks.filter((item) =>
+      Number(item.id) !== Number(taskId));
+
+    localStorage.setItem('tomato', JSON.stringify(currentTasks));
+  }
+
+  updateTextAndImportanceTaskInLocalStorage(task) {
+    const currentTasks = this.getLocalStorageTomatoTasks();
+
+    currentTasks.forEach(item => {
+      if (Number(item.id) === Number(task.id)) {
+        item.text = task.text;
+        item.importance = task.importance;
+      }
+    });
+
+    localStorage.setItem('tomato', JSON.stringify(currentTasks));
+  }
+
+  updateCountTaskInLocalStorage(task) {
+    const currentTasks = this.getLocalStorageTomatoTasks();
+
+    currentTasks.forEach(item => {
+      if (Number(item.id) === Number(task.id)) {
+        item.count = task.count;
+      }
+    });
+
+    localStorage.setItem('tomato', JSON.stringify(currentTasks));
   }
 
   get workTime() {

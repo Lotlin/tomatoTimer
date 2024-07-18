@@ -23,7 +23,7 @@ export class ViewTomato {
   }
 
   init() {
-    const tasksLS = this.controller.getLocalStorageTomatoTasks();
+    const tasksLS = this.tomato.getLocalStorageTomatoTasks();
     const restoredTasksList = [];
 
     if (tasksLS.length) {
@@ -34,7 +34,6 @@ export class ViewTomato {
     }
 
     this.tomato.tasks = restoredTasksList;
-    console.log('this.tomato.tasks: ', this.tomato.tasks);
     new RenderTomatoList(this.taskListElem, this.tomato.tasks).render();
   }
 
@@ -51,12 +50,8 @@ export class ViewTomato {
 
       this.controller.submit();
 
-      const newTasksList = this.controller.getLocalStorageTomatoTasks();
-      console.log('newTasksList: ', newTasksList);
-      // toDO убрать
       new RenderTomatoList(this.taskListElem, this.tomato.tasks).render();
       new RenderTomatoFormElems(this.form).render();
-      // new RenderTomatoList(this.taskListElem, newTasksList).render();
     });
 
     this.taskListElem.addEventListener('click', ({target}) => {
@@ -88,8 +83,7 @@ export class ViewTomato {
           if (this.controller.isPopUpMenuDelBtn(target)) {
             this.controller.showDelModal(this.delModalOverlay);
             this.tomato.delTask(taskId);
-            console.log('taskId222: ', taskId);
-            this.controller.removeTaskFromLocalStorageTomatoTasks(taskId);
+            this.tomato.removeTaskFromLocalStorageTomatoTasks(taskId);
             new RenderTomatoFormElems(this.form).render();
           }
         });

@@ -118,8 +118,7 @@ export class ControllerTomato {
       );
 
       this.tomato.addTask(task);
-      console.log('task: в Tomato ', task);
-      this.setItemLocalStorage(task);
+      this.tomato.setItemLocalStorage(task);
     } else {
       const importance = this.model.priorityClassList[priorityIndex];
 
@@ -240,7 +239,7 @@ export class ControllerTomato {
 
     return newNum < 10 ? `0${newNum}` : newNum;
   }
-
+// toDO перенести всё в Tomato
   setItemLocalStorage(task) {
     const currentTasks = this.getLocalStorageTomatoTasks();
 
@@ -254,7 +253,6 @@ export class ControllerTomato {
   }
 
   removeTaskFromLocalStorageTomatoTasks(taskId) {
-    console.log('taskId: ', taskId);
     let currentTasks = this.getLocalStorageTomatoTasks();
 
     currentTasks = currentTasks.filter((item) => Number(item.id) !== taskId);

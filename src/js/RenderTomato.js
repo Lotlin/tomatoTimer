@@ -97,7 +97,7 @@ export class RenderTomatoList extends RenderTomato {
       'data-id': task.id,
       'data-importance': task.importance,
     });
-    const span = el('span', {class: 'count-number'}, 0);
+    const span = el('span', {class: 'count-number'}, task.count);
     const btnTask = el('button', {class: 'tasks__text'}, task.text);
     const btnMenu = el('button', {class: 'tasks__button'});
     const popUpMenu = this.renderPopUpMenu();

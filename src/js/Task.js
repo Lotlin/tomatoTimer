@@ -21,22 +21,21 @@ export class Task {
 
 export class DefaultTask extends Task {
   constructor(title, priorityClassList, id = NaN, count = 0) {
-    console.log(id);
     super(title, id, count);
     this.importance = priorityClassList[0];
   }
 }
 
 export class SoSoTask extends Task {
-  constructor(title, priorityClassList, count = 0) {
-    super(title, count);
+  constructor(title, priorityClassList, id = NaN, count = 0) {
+    super(title, id, count);
     this.importance = priorityClassList[1];
   }
 }
 
 export class ImportantTask extends Task {
-  constructor(title, priorityClassList, count = 0) {
-    super(title, count);
+  constructor(title, priorityClassList, id = NaN, count = 0) {
+    super(title, id, count);
     this.importance = priorityClassList[2];
   }
 }
