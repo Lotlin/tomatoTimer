@@ -9,12 +9,9 @@ export class Tomato {
     }
 
     this.#workTime = data.workTime ?
-    // toDO вернуть 25
-      data.workTime : 0.3;
-    // toDO вернуть 5
-    this.#breakTime = data.breakTime ? data.breakTime : 0.15;
-    // toDO вернуть 15
-    this.#relaxTime = data.relaxTime ? data.relaxTime : 0.2;
+      data.workTime : 25;
+    this.#breakTime = data.breakTime ? data.breakTime : 5;
+    this.#relaxTime = data.relaxTime ? data.relaxTime : 15;
     this.tasks = [];
     this.activeTask = null;
     this.state = {
