@@ -10,6 +10,7 @@ export class ViewTomato {
     this.tomato = tomato;
     this.parentELem = parentELem;
     this.controller = controller;
+
     this.addTaskFrom = new RenderTomatoFormElems(parentELem).render();
     this.mainElem = document.querySelector('.main__container');
     this.activeTaskWindowElem = this.mainElem.querySelector('.window__panel');
@@ -52,6 +53,10 @@ export class ViewTomato {
 
       new RenderTomatoList(this.taskListElem, this.tomato.tasks).render();
       new RenderTomatoFormElems(this.form).render();
+      const priorityBtn = this.controller.getPriorityBtn(this.form);
+      priorityBtn.addEventListener('click', () => {
+        this.controller.changePriorityBtnColor(priorityBtn);
+      });
     });
 
     this.taskListElem.addEventListener('click', ({target}) => {

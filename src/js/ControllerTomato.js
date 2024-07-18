@@ -239,37 +239,4 @@ export class ControllerTomato {
 
     return newNum < 10 ? `0${newNum}` : newNum;
   }
-// toDO перенести всё в Tomato
-  setItemLocalStorage(task) {
-    const currentTasks = this.getLocalStorageTomatoTasks();
-
-    currentTasks.push(task);
-
-    localStorage.setItem('tomato', JSON.stringify(currentTasks));
-  }
-
-  getLocalStorageTomatoTasks() {
-    return JSON.parse(localStorage.getItem('tomato') || '[]');
-  }
-
-  removeTaskFromLocalStorageTomatoTasks(taskId) {
-    let currentTasks = this.getLocalStorageTomatoTasks();
-
-    currentTasks = currentTasks.filter((item) => Number(item.id) !== taskId);
-
-    localStorage.setItem('localStorage', JSON.stringify(currentTasks));
-  }
-
-  updateTaskDataInLocalStorageTomatoTask(task) {
-    const currentTasks = this.getLocalStorageTomatoTasks();
-
-    currentTasks.forEach(item => {
-      if (Number(item.id) === Number(task.id)) {
-        item.text = task.text;
-        item.count = task.count;
-      }
-    });
-
-    localStorage.setItem('localStorage', JSON.stringify(currentTasks));
-  }
 }

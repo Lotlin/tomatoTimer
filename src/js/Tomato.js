@@ -15,9 +15,6 @@ export class Tomato {
     this.#breakTime = data.breakTime ? data.breakTime : 0.15;
     // toDO вернуть 15
     this.#relaxTime = data.relaxTime ? data.relaxTime : 0.2;
-    // this.tasks = data.tasks ? data.tasks : [];
-    // toDO заменить?
-    // this.tasks = [JSON.parse(localStorage.getItem('tomato') || '[]')];
     this.tasks = [];
     this.activeTask = null;
     this.state = {
@@ -47,7 +44,6 @@ export class Tomato {
     this.tasks.push(taskData);
   }
 
-  // toDo нужно ли?
   delTask(id) {
     const tasksArr = this.tasks
         .filter(task => task.id !== id);
@@ -128,7 +124,6 @@ export class Tomato {
       if (!this.state.timeLeft) {
         if (this.state.status === 'work') {
           activeTask.increaseCounter();
-          // toDO записывать данные в LS + при изменении наименования тоже
           this.updateCountTaskInLocalStorage(activeTask);
           this.state.currentTomatoes += 1;
           activeTasCountElem.textContent = activeTask.count;

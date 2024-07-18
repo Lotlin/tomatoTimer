@@ -11,6 +11,5 @@ export const init = () => {
   const view = new ViewTomato(tomato, document.querySelector('.task-form'),
       controller);
   view.init();
-  // toDO хранение в LS, чтобы при обновлении страницы не пропадали задачи
 };
 

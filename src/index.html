@@ -25,71 +25,49 @@ type="font/woff2" crossorigin>
 <main>
 <section class="main">
   <div class="container main__container">
-  <div class="pomodoro-form window">
-  <div class="window__panel"></div>
-  <div class="window__body">
-  <p class="window__timer-text">00:00</p>
-  <div class="window__buttons">
-  <button class="button button-primary button-start" disabled>Старт</button>
-  <button class="button button-secondary button-stop hidden">Стоп</button>
-  </div>
-  </div>
-  <form class="task-form" action="submit"></form>
-  </div>
-  <div class="pomodoro-tasks">
-  <div class="tasks">
-  <p class="tasks__title">
-  Задачи:
-  </p>
-  <ul class="tasks__list"></ul>
-  <p class="tasks__deadline">1&nbsp;час 30&nbsp;мин</p>
-  </div>
-  <div class="manual">
-  <details class="manual__details">
-  <summary class="manual__title tasks__header-title">
-  Инструкция
-  </summary>
-  <ol class="manual__list">
-  <li class="manual__item">
-  Напишите название задачи чтобы её&nbsp;добавить
-  </li>
-  <li class="manual__item">
-  Для активации задачи, выберите её&nbsp;из&nbsp;списка
-  </li>
-  <li class="manual__item">
-  Запустите таймер
-  </li>
-  <li class="manual__item">
-  Работайте пока таймер не&nbsp;прозвонит
-  </li>
-  <li class="manual__item">
-  Сделайте короткий перерыв (5&nbsp;минут)
-  </li>
-  <li class="manual__item">
-  Продолжайте работать, пока задача не&nbsp;будет выполнена.
-  </li>
-  <li class="manual__item">
-  Каждые 4&nbsp;периода таймера делайте длинный перерыв
-  (15-20&nbsp;минут).
-  </li>
-  </ol>
-  </details>
-  </div>
+    <div class="pomodoro-form window">
+      <div class="window__panel"></div>
+      <div class="window__body">
+        <p class="window__timer-text">00:00</p>
+        <div class="window__buttons">
+          <button class="button button-primary button-start" disabled>Старт</button>
+          <button class="button button-secondary button-stop hidden">Стоп</button>
+        </div>
+      </div>
+      <form class="task-form" action="submit"></form>
+    </div>
 
-  </div>
+    <div class="pomodoro-tasks">
+      <div class="tasks">
+        <p class="tasks__title">Задачи:</p>
+        <ul class="tasks__list"></ul>
+      </div>
+
+      <div class="manual">
+        <details class="manual__details">
+          <summary class="manual__title tasks__header-title">Инструкция</summary>
+          <ol class="manual__list">
+            <li class="manual__item">Напишите название задачи чтобы её&nbsp;добавить</li>
+            <li class="manual__item">Для активации задачи, выберите её&nbsp;из&nbsp;списка</li>
+            <li class="manual__item">Запустите таймер</li>
+            <li class="manual__item">Работайте пока таймер не&nbsp;доёйдёт до 0 (25&nbsp;минут)</li>
+            <li class="manual__item">Сделайте короткий перерыв (5&nbsp;минут)</li>
+            <li class="manual__item">Продолжайте работать, пока задача не&nbsp;будет выполнена.</li>
+            <li class="manual__item">Каждые 4&nbsp;периода таймера делайте длинный перерыв (15&nbsp;минут).</li>
+          </ol>
+        </details>
+      </div>
+    </div>
   </div>
 </section>
 </main>
-<!-- modal with overlay -->
 <div class="modal-overlay">
   <div class="modal-delete">
-  <p class="modal-delete__title">Удалить задачу?</p>
-  <button class="modal-delete__close-button"></button>
-  <button
-  class="modal-delete__delete-button button-primary">Удалить</button>
-  <button class="modal-delete__cancel-button">Отмена</button>
+    <p class="modal-delete__title">Удалить задачу?</p>
+    <button class="modal-delete__close-button"></button>
+    <button class="modal-delete__delete-button button-primary">Удалить</button>
+    <button class="modal-delete__cancel-button">Отмена</button>
   </div>
 </div>
 </body>
-
 </html>
